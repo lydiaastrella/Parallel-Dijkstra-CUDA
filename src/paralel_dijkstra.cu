@@ -40,3 +40,18 @@ void printOutput(int* matrix, int N, std::string filename) {
 	}
 	file.close();
 }
+
+__device__
+int minDist(int* array, int* included, int N, int src) {
+	int minIdx = 0;
+	int min = N_MAX;
+	for (int i = 0; i < N; i++) {
+		if (array[src*N + i] <= min) {
+			if (included[i] == 0) {
+				min = array[src*N + i];
+				minIdx = i;
+			}
+		}
+	}
+	return minIdx;
+}
