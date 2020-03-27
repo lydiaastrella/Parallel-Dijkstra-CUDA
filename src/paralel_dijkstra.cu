@@ -55,3 +55,39 @@ int minDist(int* array, int* included, int N, int src) {
 	}
 	return minIdx;
 }
+
+__global__
+void dijkstra(int* graf, int N, int* shortestDist) {
+
+	int index = blockIdx.x * blockDim.x + threadIdx.x;
+	int stride = blockDim.x * gridDim.x;
+
+	for (int src = index; src < N; src += stride) {
+		int* included = new int[N];
+		int minIdx;
+
+		if (included != NULL) {
+			for (int i = 0; i < N; i++) {
+				included[i] = 0;
+			}
+
+			shortestDist[src*N + src] = 0;
+
+			for (int i = 0; i < N - 1; i++) {
+				minIdx = minDist(shortestDist, included, N, src);
+
+				included[minIdx] = 1;
+
+				for (int j = 0; j < N; j++) {
+					if (included[j] == 0 && shortestDist[src*N + minIdx] != N_MAX && graf[minIdx * N + j] != 0) {
+						if (graf[minIdx * N + j] + shortestDist[src*N + minIdx] < shortestDist[src*N + j]) {
+							shortestDist[src*N + j] = graf[minIdx * N + j] + shortestDist[src*N + minIdx];
+						}
+					}
+				}
+			}
+
+			delete[] included;
+		}
+	}
+}
