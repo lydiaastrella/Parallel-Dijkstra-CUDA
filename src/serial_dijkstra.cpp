@@ -86,3 +86,34 @@ void dijkstra(int* graf, int N, int src, int* shortestDist){
         delete[] included;
     }
 }
+
+int main(){
+    int N;
+    int *graf = new int[N*N];
+    struct timeval start, end;
+
+    cout<< "Enter amount of Node : ";
+    cin>>N;
+
+    graf = initializeGraf(N, graf);
+
+    int *short_dis = new int[N*N];
+
+    gettimeofday(&start, NULL);
+
+    for (int i=0; i<N; i++){
+        dijkstra(graf, N, i, short_dis);
+    }
+
+    gettimeofday(&end, NULL);
+
+    printOutput(short_dis,N,"../output/serial_dijkstra.txt");
+
+    int exectime = ((end.tv_sec - start.tv_sec) *1000000) + (end.tv_usec - start.tv_usec);
+    cout<<"Execution time : "<<exectime<<" microseconds"<<endl;
+
+    // freeMatrix(graf, N);
+    free(graf);
+    free(short_dis);
+    return 0;
+}
