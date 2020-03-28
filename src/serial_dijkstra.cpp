@@ -89,7 +89,7 @@ void dijkstra(int* graf, int N, int src, int* shortestDist){
 
 int main(){
     int N;
-    int *graf = new int[N*N];
+    int* graf = new int[N*N];
     struct timeval start, end;
 
     cout<< "Enter amount of Node : ";
@@ -97,7 +97,7 @@ int main(){
 
     graf = initializeGraf(N, graf);
 
-    int *short_dis = new int[N*N];
+    int* short_dis = new int[N*N];
 
     gettimeofday(&start, NULL);
 
@@ -113,7 +113,7 @@ int main(){
     cout<<"Execution time : "<<exectime<<" microseconds"<<endl;
 
     // freeMatrix(graf, N);
-    free(graf);
-    free(short_dis);
+    delete[] graf;
+    delete[] short_dis;
     return 0;
 }
