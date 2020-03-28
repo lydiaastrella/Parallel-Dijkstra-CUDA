@@ -91,3 +91,41 @@ void dijkstra(int* graf, int N, int* shortestDist) {
 		}
 	}
 }
+
+int main() {
+	int N;
+	int* graf;
+	int* short_dis;
+	struct timeval start, end;
+
+	cout << "Enter amount of Node : ";
+	cin >> N;
+
+	cudaMallocManaged(&graf, N * N * sizeof(int));
+
+	graf = initializeGraf(N, graf);
+
+	cudaMallocManaged(&short_dis, N * N * sizeof(int));
+	for (int i = 0; i < N*N; i++) {
+		short_dis[i] = N_MAX;
+	}
+
+	gettimeofday(&start, NULL);
+
+	int blockSize = 256;
+	int numBlocks = (N + blockSize - 1) / blockSize;
+	dijkstra << <numBlocks, blockSize >> > (graf, N, short_dis);
+
+	cudaDeviceSynchronize();
+
+	gettimeofday(&end, NULL);
+
+	printOutput(short_dis, N, "../output/paralel_dijkstra.txt");
+
+	int exectime = ((end.tv_sec - start.tv_sec) * 1000000) + (end.tv_usec - start.tv_usec);
+	cout << "Execution time : " << exectime << " microseconds" << endl;
+
+	cudaFree(graf);
+	cudaFree(short_dis);
+	return 0;
+}
