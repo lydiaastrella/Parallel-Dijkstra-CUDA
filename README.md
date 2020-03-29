@@ -19,33 +19,33 @@ Thread yang digunakan berjumlah 256 pada tiap block, dengan jumlah block bergant
 # Pengukuran Kinerja
 ### N = 100
 Serial : <br>
-![Serial-100](img/serial-100.png)
+![Serial-100](img/Serial-100.jpeg)
 
 
 Paralel : <br>
-![Paralel-100](img/paralel-100.png)
+![Paralel-100](img/Paralel-100.jpeg)
 
 
 ### N = 500
 Serial : <br>
-![Serial-500](img/serial-500.png)
+![Serial-500](img/Serial-500.jpeg)
 
 Paralel : <br>
-![Paralel-500](img/paralel-500.png)
+![Paralel-500](img/Paralel-500.jpeg)
 
 ### N = 1000
 Serial : <br>
-![Serial-1000](img/serial-1000.png)
+![Serial-1000](img/Serial-1000.jpeg)
 
 Paralel : <br>
-![Paralel-1000](img/paralel-1000.png)
+![Paralel-1000](img/Paralel-1000.jpeg)
 
 ### N = 3000
 Serial : <br>
-![Serial-3000](img/serial-3000.png)
+![Serial-3000](img/Serial-3000.jpeg)
 
 Paralel : <br>
-![Paralel-3000](img/paralel-3000.png)
+![Paralel-3000](img/Paralel-3000.jpeg)
 
 # Analisis Perbandingan Kinerja
 Dari hasil pengukuran kinerja pada serial dan paralel dengan N = 100, 500, 1000, dan 3000, dapat dilihat bahwa waktu pengukuran hasil dari algoritma Dijkstra Paralel memiliki waktu performa yang lebih baik (lebih cepat). Hal ini disebabkan oleh beban untuk menjalankan algoritma Dijkstra pada algoritma Dijkstra Paralel dibagi kedalam beberapa block dengan jumlah thread total yang setidaknya sebanyak N sedangkan pada algoritma Dijkstra Serial semua beban tersebut ditangani sendiri.
